@@ -26,6 +26,8 @@ void Simulation::initialize(int argc, char **argv) {
     if (degree < 1) degree = RNG.uniform_double(1, std::sqrt(nodes));
     if (nodes*nodes <= degree or (degree + 3) >= nodes)   //ceci évite les nombres incompatibles causant des boucles infinies
 		throw std::string("Degré trop grand pour le nombre de nodes!\n");
+	if (argTime.getValue() < 0)
+		throw std::string("Vous ne pouvez pas avoir un nombre de simulation négatif !\n");
     size_t nlink = _network->random_connect(degree);
     std::cout << _network->size() << " nodes, " << nlink << " links\n";
     maxtime = argTime.getValue();
