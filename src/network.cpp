@@ -63,9 +63,20 @@ size_t Network::random_connect(const double& mean)
 
 size_t Network::set_values(const vector<double>& newValues)
 {
-	values.clear();
-	values = newValues;
-	return values.size();
+	if (newValues.empty())
+		return 0;
+	if (newValues.size() < size())
+	{
+		for (size_t i(0); i < newValues.size(); ++i)
+			values[i] = newValues[i];
+	}
+	else
+	{
+		values.clear();
+		for (size_t i(0); i < newValues.size(); ++i)
+			values.push_back(newValues[i]);
+	}
+	return newValues.size();
 }
 
 size_t Network::size() const
